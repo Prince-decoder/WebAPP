@@ -3,7 +3,7 @@ package com.ashu.WebApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.ashu.WebApplication","com.ashu.WebApplication.ViewControl"})
 public class WebApplication {
 
 	public static void main(String[] args) {
