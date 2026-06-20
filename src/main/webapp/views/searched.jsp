@@ -111,9 +111,9 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="viewalljobs">All Jobs</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="http://localhost:8080/home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="http://localhost:8080/viewalljobs">All Jobs</a></li>
+                <li class="nav-item"><a class="nav-link" href="http://localhost:8080/contact">Contact</a></li>
             </ul>
         </div>
     </div>
