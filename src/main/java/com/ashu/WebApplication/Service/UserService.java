@@ -53,4 +53,8 @@ public class UserService {
     public List<JobPost> jobsearch(String keyword) {
         return ur.findByPostProfileContainingOrPostDescContaining(keyword,keyword);
     }
+
+    public void delete(JobPost jobPost) {
+        ur.delete(jobPost);
+    }
 }

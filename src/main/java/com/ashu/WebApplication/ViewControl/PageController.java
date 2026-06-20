@@ -5,9 +5,7 @@ import com.ashu.WebApplication.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,17 +22,34 @@ public class PageController {
         return "home";
     }
 
+    @PostMapping("viewalljobs")
+    public String Delete(JobPost jobPost)
+    {
+        us.delete(jobPost);
+        return "redirect:/viewalljobs";
+    }
+
     @GetMapping("/addjob")
     public String addJob()
     {
         return "addjob";
     }
 
+    @PostMapping("handleForm")
+    public String handle(JobPost jobPost)
+    {
+        us.addJob(jobPost);
+        return "success";
+    }
+
+
+
     @GetMapping("/contact")
     public String contact()
     {
         return "Contact";
     }
+
 
     @GetMapping("/viewalljobs")
     public String getAll(Model m)
@@ -44,12 +59,14 @@ public class PageController {
         return "viewalljobs";
     }
 
-    @PostMapping("handleForm")
-    public String formhandler(JobPost jobPost)
+
+    @DeleteMapping("/viewalljobs")
+    public String delete(JobPost jobPost)
     {
-        us.addJob(jobPost);
-        return "success";
+        us.delete(jobPost);
+        return "redirect:/viewalljobs";
     }
+
 
     @GetMapping("jobPosts/Keyword/{keyword}")
     public String search(@PathVariable("keyword") String keyword,Model m)
@@ -58,10 +75,11 @@ public class PageController {
         return "searched";
     }
 
+
     @GetMapping("/load")
     public String load()
     {
         us.load();
-        return "Success";
+        return "redirect:/viewalljobs";
     }
 }

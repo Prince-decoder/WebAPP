@@ -145,8 +145,13 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="card-footer" style="border-top: 1px solid rgba(255, 0, 0, 0.3);">
-                        </div>
+                    <div class="card-footer text-center" style="border-top: 1px solid rgba(255, 0, 0, 0.3);">
+                                            <form action="/viewalljobs" method="post" onsubmit="return confirm('Are you sure you want to delete this job?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="postId" value="${jobPost.postId}">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                            </form>
+                                        </div>
                 </div>
             </div>
         </c:forEach>
