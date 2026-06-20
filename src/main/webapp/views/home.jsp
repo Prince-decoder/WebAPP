@@ -114,7 +114,7 @@
         .branch-left { left: 0; }
         .branch-right { right: 0; transform: scaleX(-1); }
 
-        .hero-content { position: relative; z-index: 2; max-width: 700px; }
+        .hero-content { position: relative; z-index: 2; max-width: 700px; width: 100%; }
         .hero-eyebrow {
             font-family: 'Cinzel', serif;
             font-size: 0.7rem; letter-spacing: 0.3em;
@@ -136,6 +136,62 @@
             font-size: 1rem; font-weight: 300;
             color: var(--text-dim);
             line-height: 1.7; max-width: 540px; margin: 0 auto;
+        }
+
+        /* ── SEARCH BAR ── */
+        .search-wrap {
+            position: relative; z-index: 2;
+            max-width: 480px; margin: 2.25rem auto 0;
+        }
+        .search-form {
+            display: flex; align-items: center;
+            background: rgba(10,0,0,0.75);
+            border: 1px solid rgba(160,0,0,0.45);
+            border-radius: 3px;
+            padding: 0.35rem 0.35rem 0.35rem 1.1rem;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.4) inset, 0 0 22px rgba(140,0,0,0.18);
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+        .search-form:focus-within {
+            border-color: var(--crimson);
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.4) inset, 0 0 28px rgba(200,26,0,0.35);
+        }
+        .search-icon {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-right: 0.65rem;
+            flex-shrink: 0;
+        }
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            padding: 0.65rem 0;
+        }
+        .search-input::placeholder { color: var(--muted); }
+        .search-btn {
+            background: var(--blood);
+            color: var(--text-light);
+            border: 1px solid var(--crimson);
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem; font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.65rem 1.4rem;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.25s, box-shadow 0.25s;
+            white-space: nowrap;
+        }
+        .search-btn:hover {
+            background: var(--crimson);
+            box-shadow: 0 0 18px rgba(200,26,0,0.5);
+            color: #fff;
         }
 
         /* ── DIVIDER ── */
@@ -263,6 +319,9 @@
             .nav-links { display: none; }
             .moon { width: 280px; height: 280px; bottom: -80px; }
             .hero { min-height: 380px; }
+            .search-wrap { max-width: 100%; }
+            .search-form { flex-wrap: nowrap; }
+            .search-btn { padding: 0.65rem 1rem; }
         }
     </style>
 </head>
@@ -315,6 +374,22 @@
         <p class="hero-eyebrow">∙ &nbsp; Opportunities Await &nbsp; ∙</p>
         <h1 class="hero-title">Welcome to<br><span>Ashutosh</span> Job Portal</h1>
         <p class="hero-sub">Find your dream role or hire the best talent in the industry. Your next opportunity rises now.</p>
+
+        <!-- Search Bar -->
+        <div class="search-wrap">
+            <form class="search-form" id="jobSearchForm" onsubmit="return handleJobSearch(event)">
+                <span class="search-icon">&#9737;</span>
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="search-input"
+                    placeholder="Search by title, skill, or keyword..."
+                    autocomplete="off"
+                    required
+                >
+                <button type="submit" class="search-btn">Seek</button>
+            </form>
+        </div>
     </div>
 </section>
 
@@ -350,6 +425,17 @@
 <footer>
     <span>&copy; 2024 Ashutosh Job Portal &nbsp;·&nbsp; All Rights Reserved</span>
 </footer>
+
+<script>
+    function handleJobSearch(event) {
+        event.preventDefault();
+        const input = document.getElementById('searchInput');
+        const keyword = input.value.trim();
+        if (!keyword) return false;
+        window.location.href = 'http://localhost:8080/jobPosts/Keyword/' + encodeURIComponent(keyword);
+        return false;
+    }
+</script>
 
 </body>
 </html>

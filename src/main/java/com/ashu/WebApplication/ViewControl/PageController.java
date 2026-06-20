@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -48,6 +49,13 @@ public class PageController {
     {
         us.addJob(jobPost);
         return "success";
+    }
+
+    @GetMapping("jobPosts/Keyword/{keyword}")
+    public String search(@PathVariable("keyword") String keyword,Model m)
+    {
+        m.addAttribute("jobPosts",us.jobsearch(keyword));
+        return "searched";
     }
 
     @GetMapping("/load")

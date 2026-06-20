@@ -49,4 +49,8 @@ public class UserService {
     ));
             ur.saveAll(jobs);
     }
+
+    public List<JobPost> jobsearch(String keyword) {
+        return ur.findByPostProfileContainingOrPostDescContaining(keyword,keyword);
+    }
 }
