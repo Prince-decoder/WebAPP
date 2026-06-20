@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ page import="model.JobPost" %>
+<%@ page import="com.ashu.WebApplication.DataModel.JobPost" %>
 <%@page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,7 +115,7 @@
                     <a class="nav-link" href="viewalljobs">All Jobs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://telusko.com/">Contact</a>
+                    <a class="nav-link" href="contact">Contact</a>
                 </li>
             </ul>
         </div>
