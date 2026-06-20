@@ -49,4 +49,11 @@ public class PageController {
         us.addJob(jobPost);
         return "success";
     }
+
+    @GetMapping("/load")
+    public String load()
+    {
+        us.load();
+        return "Success";
+    }
 }
