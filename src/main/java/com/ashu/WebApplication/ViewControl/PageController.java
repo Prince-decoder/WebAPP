@@ -67,7 +67,6 @@ public class PageController {
         return "redirect:/viewalljobs";
     }
 
-
     @GetMapping("jobPosts/Keyword/{keyword}")
     public String search(@PathVariable("keyword") String keyword,Model m)
     {

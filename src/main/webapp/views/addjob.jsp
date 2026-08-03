@@ -319,6 +319,8 @@
             <div class="section-label">Posting Details</div>
 
             <form action="handleForm" method="post">
+                <!-- CSRF token required by Spring Security (prevents 403 Forbidden) -->
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
                 <!-- Row 1: ID + Experience -->
                 <div class="form-row">
