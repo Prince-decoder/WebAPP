@@ -1,21 +1,14 @@
 package com.ashu.WebApplication.Security;
 
-import com.ashu.WebApplication.Security.Model.User;
-import com.ashu.WebApplication.Security.Model.UserDetailImplementation;
-import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -26,10 +19,24 @@ public class Security_Config {
     private UserDetailsService userDetailsService;
 
     @Bean
-    public AuthenticationProvider authProvider()
-    {
+    public AuthenticationProvider authProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
-        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
         return provider;
+    }
+
+    @Bean
+    public SecurityFilterChain setFilterChain(HttpSecurity httpSecurity) throws Exception {
+
+        httpSecurity
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(request ->
+                        request.requestMatchers("/register", "/login", "/error")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated())
+                .formLogin(form -> form.permitAll()); // browser form login only, no httpBasic popup
+
+        return httpSecurity.build();
     }
 }
