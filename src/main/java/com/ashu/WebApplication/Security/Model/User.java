@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @Entity
 @NoArgsConstructor
@@ -13,9 +12,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "Users")
 public class User {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "name")
+
+    @Column(name = "name")         // DB column name
     private String username;
+
     private String password;
 }
