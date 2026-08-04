@@ -1,6 +1,8 @@
 package com.ashu.WebApplication.ViewControl;
 
 import com.ashu.WebApplication.DataModel.JobPost;
+import com.ashu.WebApplication.Security.Model.User;
+import com.ashu.WebApplication.Security.Service.UserDetailService;
 import com.ashu.WebApplication.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,13 @@ import java.util.List;
 @Controller
 public class PageController {
 
+    @Autowired
+    private UserDetailService userDetailsService;
+
+    @PostMapping("register")
+    public void saveNewUser(@RequestBody User user){
+        userDetailsService.saveUser(user);
+    }
 
     @Autowired
     private UserService us;
