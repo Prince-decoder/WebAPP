@@ -17,9 +17,10 @@ public class PageController {
     @Autowired
     private UserDetailService userDetailsService;
 
-    @PostMapping("register")
-    public void saveNewUser(@RequestBody User user){
+    @PostMapping("/register")
+    public String saveNewUser(@RequestBody User user){
         userDetailsService.saveUser(user);
+        return "redirect:/home";
     }
 
     @Autowired
