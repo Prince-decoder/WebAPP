@@ -337,6 +337,7 @@
         <ul class="nav-links">
             <li><a href="home" class="active">Home</a></li>
             <li><a href="viewalljobs">All Jobs</a></li>
+            <li><a href="findjob">AI Search</a></li>
             <li><a href="contact">Contact</a></li>
         </ul>
     </div>
