@@ -105,7 +105,15 @@ public class PageController {
         return "redirect:/viewalljobs";
     }
 
-    @GetMapping("/findjob")
+    // Serves the search page JSP (no params)
+    @GetMapping(value = "/findjob", params = {})
+    public String findJobPage()
+    {
+        return "findjob";
+    }
+
+    // Returns AI job results as JSON (requires ?type=...)
+    @GetMapping(value = "/findjob", params = "type")
     @ResponseBody
     public List<JobPost> getJobs(@RequestParam String type)
     {
