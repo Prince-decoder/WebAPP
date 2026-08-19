@@ -25,7 +25,6 @@ public class Security_Config {
         provider.setPasswordEncoder(new BCryptPasswordEncoder(12));
         return provider;
     }
-
     @Bean
     public SecurityFilterChain setFilterChain(HttpSecurity httpSecurity) throws Exception {
 
