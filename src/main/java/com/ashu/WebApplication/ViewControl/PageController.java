@@ -4,15 +4,28 @@ import com.ashu.WebApplication.DataModel.JobPost;
 import com.ashu.WebApplication.Security.Model.User;
 import com.ashu.WebApplication.Security.Service.UserDetailService;
 import com.ashu.WebApplication.Service.UserService;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class PageController {
+
+    private ChatClient chatClient;
+    public PageController(ChatModel model)
+    {
+        this.chatClient= ChatClient.create(model);
+    }
 
     @Autowired
     private UserDetailService userDetailsService;
@@ -90,5 +103,28 @@ public class PageController {
     {
         us.load();
         return "redirect:/viewalljobs";
+    }
+
+    // Serves the search page JSP (no params)
+    @GetMapping(value = "/findjob", params = {})
+    public String findJobPage()
+    {
+        return "findjob";
+    }
+
+    // Returns AI job results as JSON (requires ?type=...)
+    @GetMapping(value = "/findjob", params = "type")
+    @ResponseBody
+    public List<JobPost> getJobs(@RequestParam String type)
+    {
+        BeanOutputConverter<List<JobPost>> BC = new BeanOutputConverter<>(new ParameterizedTypeReference<List<JobPost>>() {});
+        
+        String prompt = "find top 5 companies that are currently recruiting {type}\n{format}";
+        PromptTemplate promptTemplate = new PromptTemplate(prompt);
+        Prompt prompt1 = promptTemplate.create(Map.of("type", type, "format", BC.getFormat()));
+
+        List<JobPost> j1 = BC.convert(chatClient.prompt(prompt1).call().content());
+
+        return j1;
     }
 }
