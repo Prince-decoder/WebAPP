@@ -1,4 +1,5 @@
-# 💼 WebApplication — Spring Boot Job Portal
+
+\# 💼 WebApplication — Spring Boot Job Portal
 
 A full-stack **Job Portal Web Application** built with **Spring Boot 4.1**, backed by **PostgreSQL**, and powered by **Google Gemini AI** for intelligent job discovery. Users can register, log in securely, post jobs, search listings, and use AI to find top hiring companies — all rendered via JSP views.
 
