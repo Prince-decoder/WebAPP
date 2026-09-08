@@ -45,6 +45,12 @@ public class PageController {
         return "home";
     }
 
+    @GetMapping("/login")
+    public String login()
+    {
+        return "login";
+    }
+
     @PostMapping("viewalljobs")
     public String Delete(JobPost jobPost)
     {

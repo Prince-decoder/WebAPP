@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,12 +32,21 @@ public class Security_Config {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/register", "/login", "/error")
+                        request.requestMatchers("/register", "/login", "/goLogin", "/error", "/views/**")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
-                .formLogin(form -> form.permitAll())
-                .httpBasic(Customizer.withDefaults()); // browser form login only, no httpBasic popup
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/home", true)
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")               // GET /login → show custom login page
+                        .loginProcessingUrl("/login")      // POST /login → Spring processes credentials
+                        .defaultSuccessUrl("/home", true)  // redirect after successful login
+                        .failureUrl("/login?error")        // redirect back with error flag
+                        .permitAll()
+                );
 
         return httpSecurity.build();
     }
