@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8090:8080"
+    networks:
+      - my-net
+  postgres:
+    image: postgres:latest
+    container_name: shop-postgres
+    environment:
+      POSTGRES_DB: Jobs
+      POSTGRES_USER: ashu
+      POSTGRES_PASSWORD: ashu@123
+    ports:
+      - "5433:5432"
+    networks:
+      - my-net
+networks:
+  my-net:
+    driver: bridge
