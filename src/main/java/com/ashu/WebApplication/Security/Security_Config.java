@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,6 +36,10 @@ public class Security_Config {
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated())
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/home", true)
+                )
                 .formLogin(form -> form
                         .loginPage("/login")               // GET /login → show custom login page
                         .loginProcessingUrl("/login")      // POST /login → Spring processes credentials
