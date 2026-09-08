@@ -45,7 +45,7 @@ public class PageController {
         return "home";
     }
 
-    @GetMapping("/login")
+    @GetMapping({"/","/login"})
     public String login()
     {
         return "login";
