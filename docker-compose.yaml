@@ -1,8 +1,11 @@
 services:
   app:
+    container_name: job-app
     build: .
     ports:
       - "8090:8080"
+    env_file:
+      - .env                          # create this file with your secret keys
     networks:
       - my-net
   postgres:
